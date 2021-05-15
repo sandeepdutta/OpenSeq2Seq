@@ -89,6 +89,9 @@ double Scorer::get_log_cond_prob(const std::vector<std::string>& words) {
     out_state = tmp_state;
   }
   // return  log10 prob
+  
+  // convert log10 to ln
+  cond_prob *= 2.30258509299;  //  1 / log10(e)
   return cond_prob;
 }
 

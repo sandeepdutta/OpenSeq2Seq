@@ -22,6 +22,11 @@ namespace std {
     %template(PairDoubleStringVector) std::vector<std::pair<double, std::string> >;
     %template(PairDoubleStringVector2) std::vector<std::vector<std::pair<double, std::string> > >;
     %template(DoubleVector3) std::vector<std::vector<std::vector<double> > >;
+    %template(IntIntPair) std::pair<int, int>;
+    %template(StringIntIntPair) std::pair<std::string, std::pair<int, int> >;
+    %template(PairIntIntStringVector) std::vector<std::pair<std::string, std::pair<int, int> > >;
+    %template(BeamResultsVector) std::vector<BeamResults>;
+    %template(WordVector) std::vector<Word>;
 }
 
 %template(IntDoublePairCompSecondRev) pair_comp_second_rev<int, double>;

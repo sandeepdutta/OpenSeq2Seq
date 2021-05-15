@@ -146,6 +146,18 @@ bool prefix_compare(const PathTrie *x, const PathTrie *y) {
   }
 }
 
+bool prefix_compare_beam(const PathTrie *x, const PathTrie *y) {
+  if (x->beam_score == y->beam_score) {
+    if (x->character == y->character) {
+      return false;
+    } else {
+      return (x->character < y->character);
+    }
+  } else {
+    return x->beam_score > y->beam_score;
+  }
+}
+
 void add_word_to_fst(const std::vector<int> &word,
                      fst::StdVectorFst *dictionary) {
   if (dictionary->NumStates() == 0) {

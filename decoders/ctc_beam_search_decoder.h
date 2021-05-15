@@ -31,6 +31,35 @@ std::vector<std::pair<double, std::string>> ctc_beam_search_decoder(
     size_t cutoff_top_n = 40,
     Scorer *ext_scorer = nullptr);
 
+//////////////////////////////////////////////////////////////////////////
+
+struct Word
+{
+	std::string text;
+	int start_time;
+	int end_time;
+	float score;
+};
+
+struct BeamResults
+{
+	std::string text;
+	float score;
+	std::vector<Word> words;
+};
+
+std::vector<BeamResults> ctc_beam_search_decoder_ex(
+    const std::vector<std::vector<double>> &probs_seq,
+    const std::vector<std::string> &vocabulary,
+    size_t beam_size,
+    double cutoff_prob = 1.0,
+    size_t cutoff_top_n = 40,
+    size_t top_k = 5,
+    size_t timestep_offset = 0,
+    Scorer *ext_scorer = nullptr);
+    
+//////////////////////////////////////////////////////////////////////////    
+
 
 class BeamDecoder {
 public:
@@ -47,6 +76,8 @@ public:
   void get_word_timestamps(
       std::vector<std::tuple<std::string, uint32_t, uint32_t>>& words);
 
+  std::vector<std::pair<std::string, std::pair<int, int>>> get_word_timestamps_buffer();
+	 
   void add_start_offset(int offset) { time_offset += offset; }
   void set_start_offset(int offset) { time_offset = offset; }
 

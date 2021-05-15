@@ -63,6 +63,7 @@ std::vector<std::pair<double, std::string>> get_beam_search_result(
 
 // Functor for prefix comparsion
 bool prefix_compare(const PathTrie *x, const PathTrie *y);
+bool prefix_compare_beam(const PathTrie *x, const PathTrie *y);
 
 /* Get length of utf8 encoding string
  * See: http://stackoverflow.com/a/4063229

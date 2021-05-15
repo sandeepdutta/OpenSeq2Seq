@@ -14,7 +14,8 @@ PathTrie::PathTrie() {
   log_prob_b_cur = -NUM_FLT_INF;
   log_prob_nb_cur = -NUM_FLT_INF;
   score = -NUM_FLT_INF;
-
+  beam_score = -999.0f; //-NUM_FLT_INF;
+  
   ROOT_ = -1;
   character = ROOT_;
   exists_ = true;
@@ -84,28 +85,37 @@ PathTrie* PathTrie::get_path_trie(int new_char, bool reset) {
   }
 }
 
-PathTrie* PathTrie::get_path_vec(std::vector<int>& output, std::vector<uint32_t>* timestamps) {
-  return get_path_vec(output, ROOT_, std::numeric_limits<size_t>::max(), timestamps);
+PathTrie* PathTrie::get_path_vec(std::vector<int>& output, std::vector<uint32_t>* timestamps, std::vector<float>* scores) {
+  return get_path_vec(output, ROOT_, std::numeric_limits<size_t>::max(), timestamps, scores);
 }
 
 PathTrie* PathTrie::get_path_vec(std::vector<int>& output,
                                  int stop,
                                  size_t max_steps,
-                                 std::vector<uint32_t>* timestamps) {
+                                 std::vector<uint32_t>* timestamps,
+						   std::vector<float>* scores) {
   if (character == stop || character == ROOT_ || output.size() == max_steps) {
     std::reverse(output.begin(), output.end());
     if (timestamps) {
       std::reverse(timestamps->begin(), timestamps->end());
     }
+    if (scores) {
+      std::reverse(scores->begin(), scores->end());
+    }
     return this;
   } else {
     output.push_back(character);
     if (timestamps) {
-      if (timestamps->size() == 0 || output[output.size()-1] == 0 || parent->character == ROOT_ || parent->character == 0) {
+      //if (timestamps->size() == 0 || output[output.size()-1] == 0 || parent->character == ROOT_ || parent->character == 0) {
         timestamps->push_back(offset);
-      }
+      //}
     }
-    return parent->get_path_vec(output, stop, max_steps, timestamps);
+    
+    if (scores) {
+	    scores->push_back(score);
+    }
+    
+    return parent->get_path_vec(output, stop, max_steps, timestamps, scores);
   }
 }
 

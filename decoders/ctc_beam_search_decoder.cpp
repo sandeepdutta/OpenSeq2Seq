@@ -378,28 +378,27 @@ std::vector<BeamResults> ctc_beam_search_decoder_ex(
     // request timestamp only for best result
     prefixes[i]->get_path_vec(char_indices, i == 0 ? &timestamps : nullptr, i == 0 ? &scores : nullptr);
     
+#ifdef DEBUG    
     if( i == 0 )
     {
-	    printf("beam_search_result(%d) - char_indices size %d\n", i, char_indices.size());
+	    printf("\nbeam_search_result(%d) - char_indices size %d\n", i, char_indices.size());
 	    
 	    for( size_t j=0; j < char_indices.size(); j++ )
 		    printf("%i ", char_indices[j]);
-	    printf("\n");
-	    
-	    printf("beam_search_result(%d) - timestamps size %d\n", i, timestamps.size());
+
+	    printf("\nbeam_search_result(%d) - timestamps size %d\n", i, timestamps.size());
 	    
 	    for( size_t j=0; j < timestamps.size(); j++ )
 		    printf("%u ", timestamps[j]);
-	    printf("\n");
-	    
-		printf("beam_search_result(%d) - scores size %d\n", i, scores.size());
+
+		printf("\nbeam_search_result(%d) - scores size %d\n", i, scores.size());
 	    
 	    for( size_t j=0; j < scores.size(); j++ )
 		    printf("%f ", scores[j]);
-	    printf("\n");
-	    
-	    printf("beam_search_result(%d) - overall score %f\n", i, prefixes[i]->beam_score);
+
+	    printf("\nbeam_search_result(%d) - overall score %f\n", i, prefixes[i]->beam_score);
     }
+#endif
     
     // convert index to string
     std::string beam_str;

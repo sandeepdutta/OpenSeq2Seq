@@ -27,6 +27,6 @@ if [ ! -d ThreadPool ]; then
 fi
 
 echo "Install decoders ..."
-python3 setup.py install --num_processes 4
+pip3 install --verbose -e .
 echo "Testing installation ..."
 python3 ctc_decoders_test.py

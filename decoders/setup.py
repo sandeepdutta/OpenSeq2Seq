@@ -3,9 +3,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from setuptools import setup, Extension
-import setuptools
-from distutils import ccompiler
+from setuptools import setup, Extension, distutils
 import glob
 import platform
 import os, sys, shutil

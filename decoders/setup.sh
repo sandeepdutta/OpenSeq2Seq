@@ -29,4 +29,4 @@ fi
 echo "Install decoders ..."
 python3 setup.py install --num_processes 4
 echo "Testing installation ..."
-python ctc_decoders_test.py
+python3 ctc_decoders_test.py
